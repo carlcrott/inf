@@ -7,10 +7,10 @@
 ## Installation of repo packages
 # install salt prerequs 
 sudo apt-get -y install python-software-properties
-sudo add-apt-repository -y ppa:saltstack/salt
+sudo add-apt-repository -y ppa:inf/salt
 sudo apt-get update
 
-sudo apt-get -y install curl sshpass
+sudo apt-get -y install curl sshpass 
 
 # install salt
 sudo apt-get -y install salt-master salt-minion salt-syndic
@@ -36,8 +36,10 @@ sudo ufw allow 4505
 sudo ufw allow 4506
 
 # auto configure salt-master IP from localmachine IP
-CURRENT_IP=$(ifconfig eth1 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
+sudo mkdir /etc/salt
+sudo chown -R ubuntu /etc/salt/
 mkdir /etc/salt/cloud.providers.d
 
 # generating file here to dynamically configure the salt master IP
@@ -66,20 +68,22 @@ EOF
 
 
 # place salts zeroMQ directory 
-mkdir /srv/salt
+sudo chown -R ubuntu /srv
+mkdir /srv/salt/
+
 # default location for salt state files
-cp ~/saltstack/salt/*.sls /srv/salt/
+cp ~/inf/salt/*.sls /srv/salt/
 
 # place master config
-cp ~/saltstack/salt/master /etc/salt/
+cp ~/inf/salt/master /etc/salt/
 # place minion config
-cp ~/saltstack/salt/minion /srv/salt/
+cp ~/inf/salt/minion /srv/salt/
 # place minion scripts
-cp -r ~/saltstack/salt/minion_scripts/ /srv/salt/
+cp -r ~/inf/salt/minion_scripts/ /srv/salt/
 
 # place rackspace profiles
 mkdir /etc/salt/cloud.profiles.d
-cp ~/saltstack/salt/cloud.profiles.d/* /etc/salt/cloud.profiles.d/
+cp ~/inf/salt/cloud.profiles.d/* /etc/salt/cloud.profiles.d/
 
 
 
