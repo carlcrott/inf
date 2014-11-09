@@ -13,6 +13,19 @@ sudo apt-get update
 sudo apt-get -y install curl sshpass 
 
 # install salt
+
+######## so some combination of these two
+sudo add-apt-repository -y ppa:saltstack/salt
+sudo apt-get update
+
+echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
+wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
+#####################
+
+
+
+
+
 sudo apt-get -y install salt-master salt-minion salt-syndic
 
 # install pip
@@ -20,8 +33,13 @@ sudo apt-get -y install python-pip python-dev build-essential
 sudo pip -y install --upgrade pip
 
 # finally salt
-pip install salt-cloud
-pip install apache-libcloud
+
+sudo pip install salt-cloud
+##TODO: clean up permissions
+# should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
+# or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
+
+sudo pip install apache-libcloud
 
 # Edge apache-libcloud
 #pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
