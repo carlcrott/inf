@@ -68,7 +68,7 @@ providers:
     #
     project: "infrastructure"
     service_account_email_address: "carlcrott@gmail.com"
-    service_account_private_key: "/path/to/your/NEW.pem"
+    service_account_private_key: "google_compute_engine.pub"
 
     # Set up the location of the salt master
     #
@@ -83,6 +83,8 @@ providers:
 
     provider: gce
 EOF
+
+
 
 
 # place salts zeroMQ directory 
