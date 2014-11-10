@@ -87,13 +87,20 @@ mkdir /etc/salt/cloud.providers.d
 # EOF
 
 
-cat > /etc/salt/cloud <<EOF
+CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+
+
+envsubst <<EOF > /etc/salt/cloud
 providers:
- gce-config:
-   project: "calm-premise-758"
-   service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
-   service_account_private_key: "/home/ubuntu/.ssh/google_compute_engine"
-   provider: gce
+  gce-config:
+    # Set the location of the salt-master
+    #
+    minion:
+      master: $CURRENT_IP
+    project: "calm-premise-758"
+    service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
+    service_account_private_key: "/home/ubuntu/.ssh/google_compute_engine"
+    provider: gce
 EOF
 
 
