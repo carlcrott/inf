@@ -60,28 +60,28 @@ sudo mkdir /etc/salt
 sudo chown -R ubuntu /etc/salt/
 mkdir /etc/salt/cloud.providers.d
 
+
 # generating file here to dynamically configure the salt master IP
 envsubst <<EOF > /etc/salt/cloud.providers.d/gcloud.conf
-providers:
-  gce-config:
-    # Set up the Project name and Service Account authorization
-    #
-    project: "infrastructure"
-    service_account_email_address: "carlcrott@gmail.com"
-    service_account_private_key: "google_compute_engine.pub"
+gce-config:
+  # Set up the Project name and Service Account authorization
+  #
+  project: "calm-premise-758"
+  service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
+  service_account_private_key: "/home/ubuntu/.ssh/google_compute_engine"
 
-    # Set up the location of the salt master
-    #
-    minion:
-      master: saltmaster.example.com
+  # Set up the location of the salt master
+  #
+  minion:
+    master: saltmaster.example.com
 
-    # Set up grains information, which will be common for all nodes
-    # using this provider
-    grains:
-      node_type: broker
-      release: 1.0.1
+  # Set up grains information, which will be common for all nodes
+  # using this provider
+  grains:
+    node_type: broker
+    release: 1.0.1
 
-    provider: gce
+  provider: gce
 EOF
 
 
@@ -90,6 +90,10 @@ EOF
 # place salts zeroMQ directory 
 sudo chown -R ubuntu /srv
 mkdir /srv/salt/
+
+# configure permisssions for writing logs
+sudo chown -R /var/log/salt/
+sudo chown ubuntu /var/log/salt/master
 
 # default location for salt state files
 cp ~/inf/salt/*.sls /srv/salt/
@@ -103,7 +107,7 @@ cp -r ~/inf/salt/minion_scripts/ /srv/salt/
 
 # place rackspace profiles
 mkdir /etc/salt/cloud.profiles.d
-cp ~/inf/salt/cloud.profiles.d/* /etc/salt/cloud.profiles.d/
+cp ~/inf/salt/cloud.profiles.d/gcloud.conf /etc/salt/cloud.profiles.d/
 
 
 
