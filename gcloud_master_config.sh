@@ -6,11 +6,13 @@
 
 ## Installation of repo packages
 # install salt prerequs 
-sudo apt-get -y install python-software-properties
-sudo add-apt-repository -y ppa:inf/salt
-sudo apt-get update
+# sudo apt-get -y install python-software-properties
+# sudo add-apt-repository -y ppa:inf/salt
+# sudo apt-get update
 
 sudo apt-get -y install curl sshpass 
+
+sudo -i
 
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
@@ -26,20 +28,20 @@ sh bootstrap.sh -M -N git v2014.1.0
 
 
 
-#sudo apt-get -y install salt-master salt-minion salt-syndic
+# #sudo apt-get -y install salt-master salt-minion salt-syndic
 
-# install pip
-sudo apt-get -y install python-pip python-dev build-essential
-sudo pip -y install --upgrade pip
+# # install pip
+# sudo apt-get -y install python-pip python-dev build-essential
+# sudo pip -y install --upgrade pip
 
-# finally salt
+# # finally salt
 
-sudo pip install salt-cloud
-##TODO: clean up permissions
-# should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
-# or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
+# sudo pip install salt-cloud
+# ##TODO: clean up permissions
+# # should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
+# # or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
 
-sudo pip install apache-libcloud
+# sudo pip install apache-libcloud
 
 # Edge apache-libcloud
 #pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
@@ -97,15 +99,28 @@ EOF
 
 cat > /etc/salt/cloud.profiles <<EOF
 salt_minion:
- minion:
-   master: salt
- image: ubuntu-1204-precise-v20141031
- size: n1-standard-1
- location: us-central1-a
- make_master: False
- deploy: True
- tags: '["minion", "salt"]'
- provider: gce-config
+  minion:
+    master: salt
+  image: ubuntu-1204-precise-v20141031
+  size: n1-standard-1
+  location: us-central1-a
+  make_master: False
+  deploy: True
+  tags: '["minion", "salt"]'
+  provider: gce-config
+
+all_settings:
+  image: centos-6
+  size: n1-standard-1
+  location: europe-west1-b
+  network: default
+  tags: '["one", "two", "three"]'
+  metadata: '{"one": "1", "2": "two"}'
+  use_persistent_disk: True
+  delete_boot_pd: False
+  deploy: True
+  make_master: False
+  provider: gce-config
 EOF
 
 
