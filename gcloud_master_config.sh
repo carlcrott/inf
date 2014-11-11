@@ -38,8 +38,13 @@ pip -y install --upgrade pip
 ##TODO: clean up permissions
 # should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
 # or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
+sudo apt-get install python-dev python-pip -y
 
-pip install apache-libcloud
+pip install apache-libcloud==0.14.1
+sudo pip install pycrypto==2.6.1
+
+
+salt --versions-report 
 
 # Edge apache-libcloud
 #pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
