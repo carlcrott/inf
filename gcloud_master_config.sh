@@ -10,7 +10,7 @@
 # sudo add-apt-repository -y ppa:inf/salt
 # sudo apt-get update
 
-sudo apt-get -y install curl sshpass 
+apt-get -y install curl sshpass 
 
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
@@ -41,7 +41,10 @@ pip -y install --upgrade pip
 sudo apt-get install python-dev python-pip -y
 
 pip install apache-libcloud==0.14.1
-sudo pip install pycrypto==2.6.1
+echo "apache-libcloud version:"
+python -c "import libcloud ; print libcloud.__version__"
+
+pip install pycrypto==2.6.1
 
 
 salt --versions-report 
@@ -49,8 +52,6 @@ salt --versions-report
 # Edge apache-libcloud
 #pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
 
-echo "apache-libcloud version:"
-python -c "import libcloud ; print libcloud.__version__"
 
 
 ## Salt master configurations
@@ -102,7 +103,7 @@ providers:
       master: $CURRENT_IP
     project: "calm-premise-758"
     service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
-    service_account_private_key: "~/.ssh/infrastructure-edcab089aeb4.pem"
+    service_account_private_key: "/root/.ssh/infrastructure-edcab089aeb4.pem"
     provider: gce
 EOF
 
@@ -120,9 +121,9 @@ salt_minion:
   provider: gce-config
 
 all_settings:
-  image: ubuntu-1204-precise-v20141031
+  image: debian-6
   size: n1-standard-1
-  location: us-central1-a
+  location: europe-west1-b
   network: default
   tags: '["one", "two", "three"]'
   metadata: '{"one": "1", "2": "two"}'
