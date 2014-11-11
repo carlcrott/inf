@@ -135,7 +135,7 @@ sudo chown -R ubuntu /srv
 mkdir /srv/salt/
 
 # configure permisssions for writing logs
-sudo chown -R /var/log/salt/
+sudo chown -R ubuntu /var/log/salt/
 sudo chown ubuntu /var/log/salt/master
 
 # # default location for salt state files
