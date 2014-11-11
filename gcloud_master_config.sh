@@ -99,7 +99,7 @@ providers:
       master: $CURRENT_IP
     project: "calm-premise-758"
     service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
-    service_account_private_key: "/home/ubuntu/.ssh/infrastructure-edcab089aeb4.pem"
+    service_account_private_key: "~/.ssh/infrastructure-edcab089aeb4.pem"
     provider: gce
 EOF
 
@@ -117,9 +117,9 @@ salt_minion:
   provider: gce-config
 
 all_settings:
-  image: centos-6
+  image: ubuntu-1204-precise-v20141031
   size: n1-standard-1
-  location: europe-west1-b
+  location: us-central1-a
   network: default
   tags: '["one", "two", "three"]'
   metadata: '{"one": "1", "2": "two"}'
