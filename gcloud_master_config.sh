@@ -1,98 +1,35 @@
 #!/bin/sh
-## VERSION USED FOR RACKSPACE 
-# utilizes the depreciated versions of salt-cloud
-# based off of:
-# http://www.onitato.com/deploying-to-rackspace-using-salt-cloud.html
-
-## Installation of repo packages
-# install salt prerequs 
-# sudo apt-get -y install python-software-properties
-# sudo add-apt-repository -y ppa:inf/salt
-# sudo apt-get update
 
 apt-get -y install curl sshpass 
 
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
 sh bootstrap.sh -M -N git v2014.1.0
-######## so some combination of these two
-# sudo add-apt-repository -y ppa:saltstack/salt
-# sudo apt-get update
-
-# echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-# wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-#####################
-
-
-
-
-# #sudo apt-get -y install salt-master salt-minion salt-syndic
 
 # install pip
 apt-get -y install python-pip python-dev build-essential
 pip -y install --upgrade pip
+# apt-get install python-dev python-pip -y
 
-# finally salt
-
-#sudo pip install salt-cloud
-##TODO: clean up permissions
-# should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
-# or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
-sudo apt-get install python-dev python-pip -y
-
-pip install apache-libcloud==0.14.1
+pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud
 echo "apache-libcloud version:"
 python -c "import libcloud ; print libcloud.__version__"
 
 pip install pycrypto==2.6.1
-
-
-salt --versions-report 
-
-# Edge apache-libcloud
-#pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
-
+salt --versions-report
 
 
 ## Salt master configurations
 # ensure firewall ports are open for salt
-sudo ufw allow 4505 
-sudo ufw allow 4506
+ufw allow 4505 
+ufw allow 4506
 
 # auto configure salt-master IP from localmachine IP
 CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
-sudo mkdir /etc/salt
-sudo chown -R ubuntu /etc/salt/
+mkdir /etc/salt
+chown -R ubuntu /etc/salt/
 mkdir /etc/salt/cloud.providers.d
-
-
-# generating file here to dynamically configure the salt master IP
-# envsubst <<EOF > /etc/salt/cloud.providers.d/gcloud.conf
-# gce-config:
-#   # Set up the Project name and Service Account authorization
-#   #
-#   project: "calm-premise-758"
-#   service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
-#   service_account_private_key: "/home/ubuntu/.ssh/google_compute_engine"
-
-#   # Set up the location of the salt master
-#   #
-#   minion:
-#     master: saltmaster.example.com
-
-#   # Set up grains information, which will be common for all nodes
-#   # using this provider
-#   grains:
-#     node_type: broker
-#     release: 1.0.1
-
-#   provider: gce
-# EOF
-
-
-CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
-
 
 envsubst <<EOF > /etc/salt/cloud
 providers:
@@ -121,9 +58,11 @@ salt_minion:
   provider: gce-config
 
 all_settings:
-  image: debian-6
+  image: ubuntu-1204-precise-v20141031
+  #image: centos-6
   size: n1-standard-1
-  location: europe-west1-b
+  location: us-central1-a
+  #location: europe-west1-b
   network: default
   tags: '["one", "two", "three"]'
   metadata: '{"one": "1", "2": "two"}'
@@ -132,6 +71,7 @@ all_settings:
   deploy: True
   make_master: False
   provider: gce-config
+
 EOF
 
 
