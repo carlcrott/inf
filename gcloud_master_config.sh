@@ -99,7 +99,7 @@ providers:
       master: $CURRENT_IP
     project: "calm-premise-758"
     service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
-    service_account_private_key: "/home/ubuntu/.ssh/google_compute_engine"
+    service_account_private_key: "/home/ubuntu/.ssh/infrastructure-edcab089aeb4.pem"
     provider: gce
 EOF
 
