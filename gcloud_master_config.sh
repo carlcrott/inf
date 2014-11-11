@@ -12,8 +12,6 @@
 
 sudo apt-get -y install curl sshpass 
 
-sudo -i
-
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
 sh bootstrap.sh -M -N git v2014.1.0
@@ -31,8 +29,8 @@ sh bootstrap.sh -M -N git v2014.1.0
 # #sudo apt-get -y install salt-master salt-minion salt-syndic
 
 # install pip
-sudo apt-get -y install python-pip python-dev build-essential
-sudo pip -y install --upgrade pip
+apt-get -y install python-pip python-dev build-essential
+pip -y install --upgrade pip
 
 # finally salt
 
@@ -41,7 +39,7 @@ sudo pip -y install --upgrade pip
 # should ubuntu have access to the installation dir for salt-cloud? /usr/local/lib/python2.7/dist-packages/saltcloud
 # or maybe just install as sudo ... and ubuntu can run it w/o sudo ops
 
-sudo pip install apache-libcloud
+pip install apache-libcloud
 
 # Edge apache-libcloud
 #pip install -e git://github.com/apache/libcloud.git@trunk#egg=apache-libcloud
