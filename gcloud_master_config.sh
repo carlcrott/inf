@@ -28,7 +28,6 @@ ufw allow 4506
 CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
 mkdir /etc/salt
-chown -R ubuntu /etc/salt/
 mkdir /etc/salt/cloud.providers.d
 
 envsubst <<EOF > /etc/salt/cloud
@@ -58,6 +57,8 @@ salt_minion:
   provider: gce-config
 
 all_settings:
+  minion:
+    master: salt
   image: ubuntu-1204-precise-v20141031
   #image: centos-6
   size: n1-standard-1
@@ -66,7 +67,7 @@ all_settings:
   network: default
   tags: '["one", "two", "three"]'
   metadata: '{"one": "1", "2": "two"}'
-  use_persistent_disk: True
+  use_persistent_disk: False
   delete_boot_pd: False
   deploy: True
   make_master: False
@@ -76,23 +77,24 @@ EOF
 
 
 
-# place salts zeroMQ directory 
-sudo chown -R ubuntu /srv
-mkdir /srv/salt/
+
 
 # configure permisssions for writing logs
 sudo chown -R ubuntu /var/log/salt/
 sudo chown ubuntu /var/log/salt/master
 
-# # default location for salt state files
-# cp ~/inf/salt/*.sls /srv/salt/
+# default location for salt state files
+mkdir /srv/salt/
+cp ~/inf/salt/*.sls /srv/salt/
 
-# # place master config
-# cp ~/inf/salt/master /etc/salt/
-# # place minion config
-# cp ~/inf/salt/minion /srv/salt/
-# # place minion scripts
-# cp -r ~/inf/salt/minion_scripts/ /srv/salt/
+
+mkdir /etc/salt/
+# place master config
+cp ~/inf/salt/master /etc/salt/
+# place minion config
+cp ~/inf/salt/minion /srv/salt/
+# place minion scripts
+cp -r ~/inf/salt/minion_scripts/ /srv/salt/
 
 # # place rackspace profiles
 # mkdir /etc/salt/cloud.profiles.d
