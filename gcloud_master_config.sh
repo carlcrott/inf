@@ -77,12 +77,6 @@ EOF
 
 
 
-
-
-# configure permisssions for writing logs
-sudo chown -R ubuntu /var/log/salt/
-sudo chown ubuntu /var/log/salt/master
-
 # default location for salt state files
 mkdir /srv/salt/
 cp ~/inf/salt/*.sls /srv/salt/
