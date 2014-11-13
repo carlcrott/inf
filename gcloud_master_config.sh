@@ -27,9 +27,6 @@ ufw allow 4506
 # auto configure salt-master IP from localmachine IP
 CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
-mkdir /etc/salt
-mkdir /etc/salt/cloud.providers.d
-
 envsubst <<EOF > /etc/salt/cloud
 providers:
   gce-config:
@@ -75,6 +72,16 @@ all_settings:
 
 EOF
 
+
+# place minion config
+mkdir /srv/salt
+cp ~/inf/salt/minion /srv/salt/
+
+# place master config
+# cp ~/inf/salt/master /etc/salt/
+
+
+#mkdir /etc/salt/cloud.providers.d
 
 
 # # default location for salt state files
