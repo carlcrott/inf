@@ -4,7 +4,7 @@ apt-get -y install curl sshpass
 
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
-sh bootstrap.sh -M -N git v2014.1.0
+sh bootstrap.sh -M -N git v2014.1.13
 
 # install pip
 apt-get -y install python-pip python-dev build-essential
@@ -77,18 +77,18 @@ EOF
 
 
 
-# default location for salt state files
-mkdir /srv/salt/
-cp ~/inf/salt/*.sls /srv/salt/
+# # default location for salt state files
+# mkdir /srv/salt/
+# cp ~/inf/salt/*.sls /srv/salt/
 
 
-mkdir /etc/salt/
-# place master config
-cp ~/inf/salt/master /etc/salt/
-# place minion config
-cp ~/inf/salt/minion /srv/salt/
-# place minion scripts
-cp -r ~/inf/salt/minion_scripts/ /srv/salt/
+# mkdir /etc/salt/
+# # place master config
+# cp ~/inf/salt/master /etc/salt/
+# # place minion config
+# cp ~/inf/salt/minion /srv/salt/
+# # place minion scripts
+# cp -r ~/inf/salt/minion_scripts/ /srv/salt/
 
 # # place rackspace profiles
 # mkdir /etc/salt/cloud.profiles.d
