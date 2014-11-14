@@ -3,7 +3,7 @@
 ## Example:
 #./build_minions.sh 5 testinstance
 
-echo all_settings: > cloud.map
+echo gce-n1-standard-1: > cloud.map
 #TODO: clean out all existing keys listed via:
 # salt-key -L
 
