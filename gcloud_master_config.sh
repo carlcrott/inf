@@ -21,7 +21,7 @@ salt --versions-report
 
 ## Salt master configurations
 # ensure firewall ports are open for salt
-ufw allow 4505 
+ufw allow 4505
 ufw allow 4506
 
 # auto configure salt-master IP from localmachine IP
@@ -53,7 +53,7 @@ salt_minion:
   tags: '["minion", "salt"]'
   provider: gce-config
 
-all_settings:
+gce-n1-standard-1:
   minion:
     master: salt
   image: ubuntu-1204-precise-v20141031
@@ -89,13 +89,10 @@ cp ~/inf/salt/minion /srv/salt/
 # cp ~/inf/salt/*.sls /srv/salt/
 
 
-# mkdir /etc/salt/
-# # place master config
-# cp ~/inf/salt/master /etc/salt/
-# # place minion config
-# cp ~/inf/salt/minion /srv/salt/
-# # place minion scripts
-# cp -r ~/inf/salt/minion_scripts/ /srv/salt/
+#mkdir /etc/salt/
+# place master config
+#cp ~/inf/salt/master /etc/salt/
+
 
 # # place rackspace profiles
 # mkdir /etc/salt/cloud.profiles.d
