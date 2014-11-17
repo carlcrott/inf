@@ -34,8 +34,8 @@ providers:
     #
     minion:
       master: $CURRENT_IP
-    project: "calm-premise-758"
-    service_account_email_address: "601876700938-5hjvc9l9st7d5g2s0gqvq7f9ma93kfhr@developer.gserviceaccount.com"
+    project: "black-inf"
+    service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
     service_account_private_key: "/root/.ssh/infrastructure-edcab089aeb4.pem"
     provider: gce
 EOF
