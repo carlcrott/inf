@@ -30,52 +30,40 @@ CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{pri
 envsubst <<EOF > /etc/salt/cloud
 providers:
   gce-config:
-    # Set the location of the salt-master
-    #
     minion:
       master: $CURRENT_IP
     project: "black-inf"
     service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
-    service_account_private_key: "/root/.ssh/infrastructure-edcab089aeb4.pem"
+    service_account_private_key: "/root/.ssh/black-8ac9a2d12429.pem"
     provider: gce
+    ssh_username: ubuntu
+    # Use the local private SSH key file located here
+    ssh_keyfile: /etc/cloud/google_compute_engine
 EOF
 
 
-cat > /etc/salt/cloud.profiles <<EOF
-salt_minion:
-  minion:
-    master: salt
-  image: ubuntu-1204-precise-v20141031
-  size: n1-standard-1
-  location: us-central1-a
-  make_master: False
-  deploy: True
-  tags: '["minion", "salt"]'
-  provider: gce-config
-
+envsubst <<EOF > /etc/salt/cloud.profiles
 gce-n1-standard-1:
   minion:
     master: salt
   image: ubuntu-1204-precise-v20141031
-  #image: centos-6
   size: n1-standard-1
   location: us-central1-a
-  #location: europe-west1-b
   network: default
   tags: '["one", "two", "three"]'
-  metadata: '{"one": "1", "2": "two"}'
+  metadata: '{"sshKeys": "gceuser: $(cat /root/.ssh/id_rsa.pub) "}'
   use_persistent_disk: False
-  delete_boot_pd: False
+  delete_boot_pd: True
   deploy: True
   make_master: False
   provider: gce-config
-
 EOF
 
 
 # place minion config
-mkdir /srv/salt
-cp ~/inf/salt/minion /srv/salt/
+cp ~/inf/salt/minion /etc/salt/
+
+
 
 # place master config
 # cp ~/inf/salt/master /etc/salt/
