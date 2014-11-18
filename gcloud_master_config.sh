@@ -38,7 +38,7 @@ providers:
     provider: gce
 
     ssh_username: ubuntu
-    ssh_keyfile: /etc/cloud/google_compute_engine
+    ssh_keyfile: /root/.ssh/id_rsa
 EOF
 
 
