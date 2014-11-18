@@ -8,7 +8,7 @@ sh bootstrap.sh -M -N git v2014.1.13
 
 # install pip
 apt-get -y install python-pip python-dev build-essential
-pip -y install --upgrade pip
+pip install --upgrade pip
 # apt-get install python-dev python-pip -y
 
 pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud
@@ -36,7 +36,7 @@ providers:
     service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
     service_account_private_key: "/root/.ssh/black-8ac9a2d12429.pem"
     provider: gce
-    
+
     ssh_username: ubuntu
     ssh_keyfile: /etc/cloud/google_compute_engine
 EOF
