@@ -36,8 +36,8 @@ providers:
     service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
     service_account_private_key: "/root/.ssh/black-8ac9a2d12429.pem"
     provider: gce
+    
     ssh_username: ubuntu
-    # Use the local private SSH key file located here
     ssh_keyfile: /etc/cloud/google_compute_engine
 EOF
 
