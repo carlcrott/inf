@@ -39,7 +39,7 @@ providers:
     provider: gce
 
     ssh_username: ubuntu
-    #ssh_keyfile: /root/.ssh/id_rsa
+    ssh_keyfile: /root/.ssh/id_rsa
 EOF
 
 
