@@ -50,7 +50,7 @@ gce-n1-standard-1:
   size: n1-standard-1
   location: us-central1-a
   network: default
-  tags: '[ "http-server", "https-server" ]'
+  tags: '[ "http-server", "https-server", "minion", "salt"]'
   metadata: '{"sshKeys": "ubuntu: $(cat /root/.ssh/id_rsa.pub) "}'
   use_persistent_disk: False
   delete_boot_pd: True
