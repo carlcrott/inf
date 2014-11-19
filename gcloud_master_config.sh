@@ -3,7 +3,7 @@ apt-get -y install curl sshpass
 
 # install salt
 curl -o bootstrap.sh -L http://bootstrap.saltstack.org
-sh bootstrap.sh -M -N git v2014.1.13
+sh bootstrap.sh -M -N git v2014.1.0
 
 # install pip
 apt-get -y install python-dev build-essential
@@ -22,6 +22,9 @@ python -c "import libcloud ; print libcloud.__version__"
 # ensure firewall ports are open for salt
 ufw allow 4505
 ufw allow 4506
+
+# restart salt-master
+pkill salt-master && salt-master -d
 
 # auto configure salt-master IP from localmachine IP
 CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
