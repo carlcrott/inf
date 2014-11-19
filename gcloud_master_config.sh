@@ -30,8 +30,7 @@ CURRENT_IP=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{pri
 envsubst <<EOF > /etc/salt/cloud
 providers:
   gce-config:
-    minion:
-      master: $CURRENT_IP
+
     project: "black-inf"
     service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
     service_account_private_key: "/root/.ssh/black-8ac9a2d12429.pem"
@@ -45,7 +44,7 @@ EOF
 envsubst <<EOF > /etc/salt/cloud.profiles
 gce-n1-standard-1:
   minion:
-    master: salt
+    master: $CURRENT_IP
   image: ubuntu-1204-precise-v20141031
   size: n1-standard-1
   location: us-central1-a
@@ -56,6 +55,17 @@ gce-n1-standard-1:
   delete_boot_pd: True
   deploy: True
   make_master: False
+  provider: gce-config
+
+salt_minion:
+  minion:
+    master: salt
+  image: debian-7-wheezy-v20131120
+  size: n1-standard-1
+  location: us-central2-a
+  make_master: False
+  deploy: True
+  tags: '["minion", "salt"]'
   provider: gce-config
 EOF
 
