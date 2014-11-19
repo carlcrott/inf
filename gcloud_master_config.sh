@@ -1,5 +1,4 @@
 #!/bin/sh
-
 apt-get -y install curl sshpass 
 
 # install salt
@@ -7,19 +6,17 @@ curl -o bootstrap.sh -L http://bootstrap.saltstack.org
 sh bootstrap.sh -M -N git v2014.1.13
 
 # install pip
-apt-get -y install python-pip python-dev build-essential
-pip install --upgrade pip
+apt-get -y install python-dev build-essential
+apt-get -y install python-pip
 
-sleep 2
-# apt-get install python-dev python-pip -y
+# install edge libcloud v 0.16.0
+pip install git+git://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud 
+pip uninstall pycrypto==2.6.1
 
-pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud
-echo "apache-libcloud version:"
-python -c "import libcloud ; print libcloud.__version__"
 
-pip install pycrypto==2.6.1
+# Report on versions
 salt --versions-report
-
+python -c "import libcloud ; print libcloud.__version__"
 
 ## Salt master configurations
 # ensure firewall ports are open for salt
