@@ -9,6 +9,8 @@ sh bootstrap.sh -M -N git v2014.1.13
 # install pip
 apt-get -y install python-pip python-dev build-essential
 pip install --upgrade pip
+
+sleep 2
 # apt-get install python-dev python-pip -y
 
 pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud
@@ -37,7 +39,7 @@ providers:
     provider: gce
 
     ssh_username: ubuntu
-    ssh_keyfile: /root/.ssh/id_rsa
+    #ssh_keyfile: /root/.ssh/id_rsa
 EOF
 
 
@@ -55,17 +57,6 @@ gce-n1-standard-1:
   delete_boot_pd: True
   deploy: True
   make_master: False
-  provider: gce-config
-
-salt_minion:
-  minion:
-    master: salt
-  image: debian-7-wheezy-v20131120
-  size: n1-standard-1
-  location: us-central2-a
-  make_master: False
-  deploy: True
-  tags: '["minion", "salt"]'
   provider: gce-config
 EOF
 
