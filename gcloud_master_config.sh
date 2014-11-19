@@ -58,6 +58,20 @@ gce-n1-standard-1:
   deploy: True
   make_master: False
   provider: gce-config
+
+
+master_gce-n1-standard-1:
+  image: ubuntu-1204-precise-v20141031
+  size: n1-standard-1
+  location: us-central1-a
+  network: default
+  tags: '[ "http-server", "https-server", "minion", "salt"]'
+  metadata: '{"sshKeys": "ubuntu: $(cat /root/.ssh/id_rsa.pub) "}'
+  use_persistent_disk: False
+  delete_boot_pd: True
+  deploy: True
+  make_master: True
+  provider: gce-config
 EOF
 
 
