@@ -10,9 +10,9 @@ apt-get -y install python-dev build-essential
 apt-get -y install python-pip
 
 # install edge libcloud v 0.16.0
-pip install git+git://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud 
-pip uninstall pycrypto==2.6.1
-
+#pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@v0.16.0#egg=apache-libcloud
+pip install -e git+https://git-wip-us.apache.org/repos/asf/libcloud.git@trunk#egg=apache-libcloud
+pip install pycrypto==2.6.1
 
 # Report on versions
 salt --versions-report
