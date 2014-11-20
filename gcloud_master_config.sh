@@ -35,13 +35,12 @@ providers:
 
     project: "black-inf"
     service_account_email_address: "845929625302-f5dqut87aipunjgl2jhq5lgvjbv7c2ul@developer.gserviceaccount.com"
-    service_account_private_key: "/root/.ssh/black-8ac9a2d12429.pem"
+    service_account_private_key: "/root/.ssh/black-fba75740b15c.pem"
     provider: gce
 
     ssh_username: ubuntu
     ssh_keyfile: /root/.ssh/id_rsa
 EOF
-
 
 envsubst <<EOF > /etc/salt/cloud.profiles
 gce-n1-standard-1:
