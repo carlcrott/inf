@@ -1,9 +1,16 @@
 #!/bin/sh
-apt-get -y install curl sshpass 
+apt-get -y install curl sshpass
+
+
 
 # install salt
-curl -o bootstrap.sh -L http://bootstrap.saltstack.org
-sh bootstrap.sh -M -N git v2014.1.0
+yes | add-apt-repository ppa:saltstack/salt
+apt-get install python-software-properties
+#apt-get install software-properties-common
+
+# bootstrap script 
+# curl -o bootstrap.sh -L http://bootstrap.saltstack.org
+# sh bootstrap.sh -M -N git v2014.1.0
 
 # install pip
 apt-get -y install python-dev build-essential
